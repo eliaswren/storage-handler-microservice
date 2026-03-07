@@ -10,7 +10,6 @@ app = Flask(__name__)
 
 # Local storage of a passed json J will be handled with a saved json localstorage_dict
 # In short, localstorage_dict[j[name]] = j
-#localstorage_dict = {}
 
 # Dumps localstorage_dict into localstorage
 def update_storage(localstorage_dict): 
@@ -26,7 +25,6 @@ def pull_localstorage():
 @app.route('/storagehandler', methods = ['POST'])
 def post_new(): 
     localstorage_dict = pull_localstorage()
-
 
     # Access passed json block
     data = request.get_json()
@@ -101,7 +99,6 @@ def delete_object(name):
         return jsonify({"error": f'No locally stored object associated with name {name}'}), 404
     else: 
         localstorage_dict.pop(name)
-        print("localstorage_dict (DELETE):", localstorage_dict)
         update_storage(localstorage_dict)
         return jsonify({"message": f'{name} successfully removed from local storage'}), 200
     
